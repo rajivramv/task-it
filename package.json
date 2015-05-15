@@ -1,0 +1,35 @@
+{
+  "name": "gquotient-project-management",
+  "version": "0.1.0",
+  "main": "app.js",
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
+    "gulp-debug": "^2.0.1",
+    "gulp-filter": "^2.0.2",
+    "gulp-inject": "^1.2.0",
+    "gulp-minify-css": "^1.0.0",
+    "gulp-ng-annotate": "^0.5.3",
+    "gulp-plumber": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev-all": "^0.8.18",
+    "gulp-sass": "^2.0.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-watch": "^4.1.0",
+    "main-bower-files": "^2.5.0",
+    "run-sequence": "^1.1.0"
+  },
+  "dependencies": {},
+  "description": "Gquotient Project Management",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://rajivramv@bitbucket.org/gquotient/gquotient-project-management.git"
+  },
+  "author": "Rajiv Ram V",
+  "license": "MIT"
+}
