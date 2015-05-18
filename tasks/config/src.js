@@ -3,5 +3,6 @@ module.exports = {
 	componentsPath: '/components',
 	sassPath: '/sass',
 	cssPath: '/css',
-	jsPath: '/js'
+	jsPath: '/js',
+	partialsPath: '/partials'
 }

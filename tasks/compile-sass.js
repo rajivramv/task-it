@@ -28,7 +28,7 @@ module.exports = new function(){
     	.pipe(gulp.dest('.'))
   	}
   	return {
-  		base: 		sassify.bind(this,baseSassPath),
-	 	 components: sassify.bind(this,componentsSassPath)
+  	    base: sassify.bind(this,baseSassPath),
+	 	components: sassify.bind(this,componentsSassPath)
 	}
 }

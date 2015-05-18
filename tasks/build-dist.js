@@ -22,6 +22,7 @@ var ngAnnotate           = require('gulp-ng-annotate');
 var inject 				 = require('gulp-inject');
 var revAll               = require('gulp-rev-all');
 var debug				 = require('gulp-debug');
+var ngFileSort      = require('gulp-angular-filesort');
 //var sq                   = require('streamqueue');
 // var usemin               = require('gulp-usemin');
 // var cssRebaseUrls        = require('gulp-css-rebase-urls');
@@ -33,18 +34,13 @@ var debug				 = require('gulp-debug');
 // var toDelete = [];
 var srcBasePath = srcConfig.basePath,		
 	distBasePath = distConfig.basePath;
-
 module.exports = function (done) {	
   runSequence(
-    // ['clean-dist-folder', 'compile-sass'],
-    // 'copy-libraries',
-    // ['copy-scripts','copy-css'],
+    ['clean-dist-folder', 'compile-sass'],
+    'copy-libraries',
+    ['copy-scripts','copy-css','copy-partials'],
     'inject-files',
     // 'rev'
-  //   // ['usemin', 'copy:dist'],
-  //   // ['replace', 'scripts', 'cssmin'],
-  //   // 'rev',
-  //   // 'clean:finish',
     done);
 };
 
@@ -59,6 +55,7 @@ gulp.task('copy-libraries',function (done){
 		cssPath = distConfig.cssPath;
 	var jsFilter = gulpFilter('*.js');
     var cssFilter = gulpFilter('*.css');
+    var count = 1;
     // var fontFilter = gulpFilter(['*.eot', '*.woff', '*.svg', '*.ttf']);
 
     // grab vendor js files from bower_components, minify and push it into libPath/js
@@ -66,8 +63,9 @@ gulp.task('copy-libraries',function (done){
     .pipe(jsFilter)
     .pipe(uglify())
     .pipe(sourceMaps.write())
-    .pipe(rename({
-        suffix: '.min'
+    .pipe(rename(function(path){
+        path.basename = 'lib-js-' + count++ + '-' + path.basename;
+        path.extname = '.min' + path.extname;
     }))
     .pipe(gulp.dest(path.join(libPath + jsPath)))
     .pipe(jsFilter.restore())
@@ -83,130 +81,66 @@ gulp.task('copy-libraries',function (done){
     .pipe(cssFilter.restore());
 });
 
-gulp.task('copy-scripts',function(){
+gulp.task('copy-scripts',function(done){
 	var jsPath = srcConfig.jsPath,
 		componentsPath = srcConfig.componentsPath;
-	gulp.src([path.join(srcBasePath,jsPath,'/**/*.js'),path.join(srcBasePath,componentsPath,'/**',jsPath,'/**/*.js')])
+	return gulp.src([path.join(srcBasePath,jsPath,'{,/**}/*.js'),path.join(srcBasePath,componentsPath,'/**',jsPath,'{,/**}/*.js')])
+    .pipe(ngFileSort())
 	.pipe(concat('app.js'))
 	.pipe(ngAnnotate())
 	.pipe(uglify())
 	.pipe(rename({
-		suffix: '.min'
-	}))
-	.pipe(gulp.dest(distBasePath));		
+        suffix: '.min'
+    }))
+    .pipe(gulp.dest(distBasePath));     
 });
-gulp.task('copy-css', function(){
-	var cssPath = srcConfig.cssPath,
-		componentsPath = srcConfig.componentsPath;
-	gulp.src([path.join(srcBasePath,cssPath,'/**/*.css'),path.join(srcBasePath,componentsPath,'/**',cssPath,'/**/*.css')])
-	    .pipe(debug({title:'debug:'}))
-	    .pipe(concat('app.css'))
+
+gulp.task('copy-css', function(done){
+    var cssPath = srcConfig.cssPath,
+        componentsPath = srcConfig.componentsPath;
+    return gulp.src([path.join(srcBasePath,cssPath,'/**/*.css'),path.join(srcBasePath,componentsPath,'/**',cssPath,'/**/*.css')])
+        .pipe(concat('app.css'))
         .pipe(sourceMaps.write())
         .pipe(rename({
-        	suffix: '.min'
+            suffix: '.min'
         }))
         .pipe(gulp.dest(distBasePath));
 });
-gulp.task('inject-files',function () {
-	// It is very important to set the base as '.' as it determines where this file is present
-	// If the file is at /some/location/ then setting no base will retain this location while
-	// setting base: '.' will make its location ./ 
-	// Piping to rename, as the name suggests only RENAMES the file and its a hack to change its
-	// location with that. So in the former case a rename will be /some/location/rename/ while in 
-	// the latter it will be ./rename
-	var target = gulp.src(srcBasePath + '/*.html',{base:'.'})
-		.pipe(rename(function(foo){
-		 	foo.dirname = distBasePath;  
-		}))
-		.pipe(debug({title:'target-->'}));
-	var sources = gulp.src(distBasePath + '/*{.js,.css}',{read: false}).pipe(debug({title:'sources-->'}));
-	var libraries = gulp.src(path.join(distBasePath,distConfig.libPath) + '/**/*{.js,.css}',{read: false}).pipe(debug({title:'libraries-->'}));
 
-	return target
-		.pipe(inject(libraries,{relative:true, name:'lib'}))
-		.pipe(inject(sources,{relative:true, name:'src'}))
-		.pipe(gulp.dest('.'));
+gulp.task('copy-partials',function(){
+    var partialsPath = srcConfig.partialsPath,
+        componentsPath = srcConfig.componentsPath;
+    return gulp.src([path.join(srcBasePath,partialsPath,'{,/**}/*.html'),path.join(srcBasePath,componentsPath,'/**', partialsPath,'{,/**}/*.html')],{base:'.'})
+        .pipe(rename(function (path) {
+            path.dirname = './' 
+        }))
+        .pipe(gulp.dest(path.join(distBasePath,distConfig.partialsPath)));
 })
+gulp.task('inject-files',function () {
+    // It is very important to set the base as '.' as it determines where this file is present
+    // If the file is at /some/location/ then setting no base will retain this location while
+    // setting base: '.' will make its location ./ 
+    // Piping to rename, as the name suggests only RENAMES the file and its a hack to change its
+    // location with that. So in the former case a rename will be /some/location/rename/ while in 
+    // the latter it will be ./rename
+    var target = gulp.src(srcBasePath + '/*.html',{base:'.'})
+        .pipe(rename(function(foo){
+            foo.dirname = distBasePath;  
+        }))
+        .pipe(debug({title:'target-->'}));
+    var sources = gulp.src(distBasePath + '/*{.js,.css}',{read: false}).pipe(debug({title:'sources-->'}));
+    var libraries = gulp.src(path.join(distBasePath,distConfig.libPath) + '/**/*{.js,.css}',{read: false}).pipe(debug({title:'libraries-->'}));
+
+    return target
+        .pipe(inject(libraries,{relative:true, name:'lib'}))
+        .pipe(inject(sources,{relative:true, name:'src'}))
+        .pipe(gulp.dest('.'));
+});
+
 gulp.task('rev',function(){
-	var revAll = new revAll({ dontRenameFile: [/^\/favicon.ico$/g, /^\/index.html/g]});
+    var revAll = new revAll({ dontRenameFile: [/^\/favicon.ico$/g, /^\/index.html/g]});
     gulp.src(distBasePath + '/**')
         .pipe(revAll.revision())
         .pipe(revAll.manifestFile())
         .pipe(revAll.versionFile());
-})
-
-// gulp.task('clean:finish', function (done) {
-//   del([
-//     '.tmp/**',
-//     'dist/client/app.{css,js}'
-//   ].concat(toDelete), done);
-// });
-
-// gulp.task('copy:dist', function () {
-//   var main = gulp.src(['server/**/*', 'package.json'], { base: './' });
-//   var assets = gulp.src('client/assets/**/*', { base: './' });
-
-//   return sq({ objectMode: true }, main, assets)
-//     .pipe(gulp.dest('dist/'));
-// });
-
-// gulp.task('usemin', ['inject'], function () {
-//   return gulp.src('client/index.html')
-//     .pipe(plumber())
-//     .pipe(usemin({ css: [cssRebaseUrls({ root: 'client' }), 'concat'] }))
-//     .pipe(gulp.dest('dist/client/'));
-// });
-
-// gulp.task('cssmin', function () {
-//   return gulp.src('dist/client/app.css')
-//     .pipe(autoprefixer())
-//     .pipe(minifyCss())
-//     .pipe(gulp.dest('dist/client/'));
-// });
-
-// gulp.task('scripts', function () {
-//   var views = gulp.src('client/views/**/*.html')
-//     .pipe(angularTemplatecache({
-//       root: 'views',
-//       module: 'bangular'
-//     }));
-
-//   var tpls = gulp.src('client/directives/**/*.html')
-//     .pipe(angularTemplatecache({
-//       root: 'directives',
-//       module: 'bangular'
-//     }));
-
-//   var app = gulp.src('dist/client/app.js');
-
-//   return sq({ objectMode: true }, app, views, tpls)
-//     .pipe(concat('app.js'))
-//     .pipe(ngAnnotate())
-//     .pipe(uglify())
-//     .pipe(gulp.dest('dist/client/'));
-// });
-
-// gulp.task('replace', function () {
-//   return gulp.src('dist/client/index.html')
-//     .pipe(replace(/\s*<script.*livereload.*><\/script>/, ''))
-//     .pipe(gulp.dest('dist/client'));
-// });
-
-// gulp.task('rev', function () {
-
-//   var rev = new revAll({
-//     transformFilename: function (file, hash) {
-//       var filename = path.basename(file.path);
-//       if (revToExclude.indexOf(filename) !== -1) {
-//         return filename;
-//       }
-//       toDelete.push(path.resolve(file.path));
-//       var ext = path.extname(file.path);
-//       return path.basename(file.path, ext) + '.' + hash.substr(0, 8) + ext;
-//     }
-//   });
-
-//   return gulp.src('dist/client/**')
-//     .pipe(rev.revision())
-//     .pipe(gulp.dest('dist/client/'));
-// });
+});
