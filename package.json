@@ -1,5 +1,5 @@
 {
-  "name": "gquotient-project-management",
+  "name": "task-management",
   "version": "0.1.0",
   "main": "app.js",
   "devDependencies": {
@@ -26,13 +26,13 @@
     "through2": "^0.6.5"
   },
   "dependencies": {},
-  "description": "Gquotient Project Management",
+  "description": "Task Management",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://rajivramv@bitbucket.org/gquotient/gquotient-project-management.git"
+    "url": "https://rajivramv@bitbucket.org/gquotient/task-management.git"
   },
   "author": "Rajiv Ram V",
   "license": "MIT"

@@ -22,7 +22,7 @@ var ngAnnotate           = require('gulp-ng-annotate');
 var inject 				 = require('gulp-inject');
 var revAll               = require('gulp-rev-all');
 var debug				 = require('gulp-debug');
-var ngFileSort      = require('gulp-angular-filesort');
+var ngFileSort           = require('gulp-angular-filesort');
 //var sq                   = require('streamqueue');
 // var usemin               = require('gulp-usemin');
 // var cssRebaseUrls        = require('gulp-css-rebase-urls');
@@ -36,6 +36,7 @@ var srcBasePath = srcConfig.basePath,
 	distBasePath = distConfig.basePath;
 module.exports = function (done) {	
   runSequence(
+    // 'copy-scripts',
     ['clean-dist-folder', 'compile-sass'],
     'copy-libraries',
     ['copy-scripts','copy-css','copy-partials'],

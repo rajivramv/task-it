@@ -1,19 +1,18 @@
 angular.module('tasks')
 .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
 	$stateProvider
-	.state('tasks',{
+	.state('root.tasks',{
 		url: '/tasks',
 		resolve: {
 			tasks: ['$kinvey',function($kinvey){
-				$kinvey.DataStore.find('tasks')
+				return $kinvey.DataStore.find('tasks')
 				.then(function(model){
-					console.log(model);
 					return model;
 				},function(err){
-					console.log('Error!');
-					console.log(err)
+					console.log('Some error fetching the records!...see log below...');
+					console.log(err);
 				})
-			}]
+			}]	
 		},
 		views: {
 			'section@root': {
@@ -22,4 +21,13 @@ angular.module('tasks')
 			}
 		}
 	})
+	.state('root.tasks.addtask',{
+		url: '/addtask',
+		views: {
+			'section@root': {
+				templateUrl: '/partials/add-task.html',
+				controller: 'addTaskController'
+			}
+		}
+	});
 }]);
