@@ -4,6 +4,6 @@ var serve = require('gulp-serve');
 module.exports = function(){
 	serve({
 		root: './dist',
-		port: 5000
+		port: process.env.PORT
 	})();
 }
