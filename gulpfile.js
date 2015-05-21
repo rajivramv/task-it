@@ -6,10 +6,10 @@ var gulp = require('gulp');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-gulp.task('base:compile-sass', require('./tasks/compile-sass').base);
-gulp.task('components:compile-sass', require('./tasks/compile-sass').components);
-gulp.task('compile-sass',['components:compile-sass','base:compile-sass']);
-gulp.task('build-dist', require('./tasks/build-dist'));
+// gulp.task('base:compile-sass', require('./tasks/compile-sass').base);
+// gulp.task('components:compile-sass', require('./tasks/compile-sass').components);
+// gulp.task('compile-sass',['components:compile-sass','base:compile-sass']);
+// gulp.task('build-dist', require('./tasks/build-dist'));
 gulp.task('serve-dist',require('./tasks/serve-dist'));
 
 // var gulp = require('gulp');
