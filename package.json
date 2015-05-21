@@ -25,7 +25,10 @@
     "run-sequence": "^1.1.0",
     "through2": "^0.6.5"
   },
-  "dependencies": {},
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-serve": "^1.0.0"
+  },
   "description": "Task Management",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
