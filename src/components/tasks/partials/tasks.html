@@ -1,17 +1,14 @@
 <ul class="list-group" >
   <li class="list-group-item" data-ng-repeat="task in tasks track by task._id" data-ng-click="isOpen = !isOpen">
     <h4 class="list-group-item-heading">{{task.task_name}}</h4>
+    <span class="label" data-ng-class="{'label-success':task.approval.approved,'label-danger':!task.approval.approved}">
+        {{task.approval.approved ? 'Approved' : 'Not approved'}}
+    </span>
     <div class="container-fluid" data-ng-show="isOpen">
         <div class="row">
             <div class="col-xs-6">
-            <h5>Estimated</h5>   
-            <h4><small>Start date: {{task.est_start_date}}</small></h4>       
-            <h4><small>End date: {{task.est_end_date}}</small></h4>       
-            </div>
-            <div class="col-xs-6">
-            <h5>Actuals</h5>          
-            <h4><small>Start date: {{task.act_start_date}}</small></p>       
-            <h4><small>End date: {{task.act_end_date}}</small></p>       
+            <h4><small>Start date: {{task.start_date}}</small></h4>       
+            <h4><small>End date: {{task.end_date}}</small></h4>       
             </div>
             <div class="col-xs-12">
             <h5>Comments</h5>

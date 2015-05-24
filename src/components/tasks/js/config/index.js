@@ -4,9 +4,18 @@ angular.module('tasks')
 	.state('root.tasks',{
 		url: '/tasks',
 		resolve: {
+			activeUser: ['$kinvey',function($kinvey){
+				return $kinvey.getActiveUser();
+			}],
 			tasks: ['$kinvey',function($kinvey){
-				return $kinvey.DataStore.find('tasks')
+				// var query = new $kinvey.Query();
+				// query.equalTo()
+				return $kinvey.DataStore.find('tasks',null,{
+					relations: {approval: 'task-approval'}
+				})
 				.then(function(model){
+					console.log('fetched records');
+					console.log(model);
 					return model;
 				},function(err){
 					console.log('Some error fetching the records!...see log below...');
