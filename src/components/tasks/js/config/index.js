@@ -8,10 +8,13 @@ angular.module('tasks')
 				return $kinvey.getActiveUser();
 			}],
 			tasks: ['$kinvey',function($kinvey){
-				// var query = new $kinvey.Query();
-				// query.equalTo()
-				return $kinvey.DataStore.find('tasks',null,{
-					relations: {approval: 'task-approval'}
+				var query = new $kinvey.Query();
+				query.ascending('creator'); 
+				return $kinvey.DataStore.find('tasks',query,{
+					relations: {
+						approval: 'task-approval',
+						creator: 'user'
+					}
 				})
 				.then(function(model){
 					console.log('Fetched records');
@@ -21,7 +24,7 @@ angular.module('tasks')
 					console.log('Some error fetching the records!...see log below...');
 					console.log(err);
 				})
-			}]	
+			}],	
 		},
 		views: {
 			'section@root': {

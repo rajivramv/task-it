@@ -14,7 +14,6 @@ angular.module('login')
 			password: $scope.user.pwd
 		}).then(function(res){
 			console.log('Successfully logged in!');
-			console.log(res);
 			$state.reload();
 		},function(err){
 			console.log('Error logging in!');

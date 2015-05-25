@@ -1,0 +1,35 @@
+<form class="form-horizontal" role="form" name="loginForm">
+  
+  <div class="form-group" data-ng-class="{'has-success': !loginForm.username.$error.required}" data-ng-hide="hasActiveUser">
+    <label class="control-label col-xs-offset-1 col-sm-2" for="username">Username</label>
+    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-pull-1">
+      <input type="text" class="form-control" id="username" placeholder="Username" data-ng-model="user.name" name="username" required/>
+    </div>
+  </div>
+
+  <div class="form-group" data-ng-class="{'has-success': !loginForm.password.$error.required}" data-ng-hide="hasActiveUser">
+    <label class="control-label col-xs-offset-1 col-sm-2" for="password">Password</label>
+    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-pull-1"> 
+      <input type="password" class="form-control" id="password" placeholder="•••••••" data-ng-model="user.pwd" name="password" data-ng-disabled="hasActiveUser" required/>
+    </div>
+  </div>
+  
+  <div class="form-group" data-ng-hide="hasActiveUser"> 
+    <div class="col-xs-offset-8 col-xs-2">
+      <button type="submit" class="btn btn-default" data-ng-disabled="(loginForm.$invalid)" data-ng-click="login()">Login</button>
+    </div>
+  </div>
+
+  <div class="alert alert-success col-xs-10 col-xs-offset-1" role="alert" data-ng-show="hasActiveUser"><strong>Logged in as:</strong> &nbsp; &nbsp; {{username}} &nbsp;
+    <h4 class="pull-right">
+      <span class="glyphicon glyphicon-king" aria-hidden="true" data-ng-show="hasActiveUser && isAdmin "></span>
+    </h4>
+  </div> 
+
+  <div class="form-group" data-ng-show="hasActiveUser"> 
+    <div class="col-xs-offset-8 col-xs-2">
+      <button type="submit" class="btn btn-default" data-ng-click="logout()">Logout</button>
+    </div>
+  </div>
+
+</form>
