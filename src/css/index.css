@@ -38,3 +38,17 @@ body {
   color: #fff !important;
   background-color: rgba(212, 75, 43, 0.85) !important;
   border-color: rgba(183, 66, 30, 0.85) !important; }
+
+section {
+  overflow: auto;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  top: 70px; }
+
+body {
+  overflow: hidden !important; }
+
+.navbar button.navbar-btn {
+  margin-right: 15px; }

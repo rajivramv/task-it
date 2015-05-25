@@ -1,7 +1,8 @@
 "use strict";
 
 var environment = (function defineEnvironment(){
-	var agent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)?'webview':'browser';
+	// var agent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)?'webview':'browser';
+	var agent = 'browser'
 	return {
 		agent: agent,
 		readyEvent: agent === 'webview'? 'deviceready':'DOMContentLoaded',

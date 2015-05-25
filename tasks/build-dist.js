@@ -96,7 +96,7 @@ gulp.task('copy-scripts',function(done){
     .pipe(ngFileSort())
 	.pipe(concat('app.js'))
 	.pipe(ngAnnotate())
-	// .pipe(uglify())
+	.pipe(uglify())
 	.pipe(rename({
         suffix: '.min'
     }))

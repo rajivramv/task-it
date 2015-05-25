@@ -40,4 +40,17 @@ body {
   background-color: rgba(#d44b2b,0.85) !important;
   border-color: rgba(#b7421e,0.85) !important;
 }
-
+section {
+	overflow: auto;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	top: 70px;
+}
+body {
+	overflow: hidden !important;
+}
+.navbar button.navbar-btn {
+	margin-right: 15px;
+}
