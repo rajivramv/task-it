@@ -6,17 +6,38 @@ body {
 	height: 50px;
 	width: 50px;
 	border-radius: 50%;
-	background-color: rgba(0, 119, 171, 0.85);
+	background-color: #d44b2b;
 	border: 0px;
 	box-shadow: 0px 1px 2px 0px #a5a5a5;
-	color: white;
-	font-size: 25px;
+	color: #f7dcd3;
+	font-size: 35px;
 	position: fixed;
 	bottom: 20px;
 	right: 20px;
 	-webkit-transition: background-color 0.3s;
 	transition:	background-color 0.3s;
 	&:hover {
-		background-color: rgb(0,119,171)
+		background-color: rgba(#d44b2b,0.85);
+		color: #fff;
 	}
 }
+.navbar-default .navbar-brand {
+	color: #f7dcd3 !important;
+}
+.navbar-default .navbar-brand:hover{
+	color: #fff !important;
+}
+.container>.navbar-header {
+	background-color: #d44b2b !important;
+}
+.btn-primary {
+  color: #f7dcd3 !important;
+  background-color: #d44b2b !important;
+  border-color: #b7421e !important;
+}
+.btn-primary:hover {
+  color: #fff !important;
+  background-color: rgba(#d44b2b,0.85) !important;
+  border-color: rgba(#b7421e,0.85) !important;
+}
+

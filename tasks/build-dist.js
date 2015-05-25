@@ -36,11 +36,11 @@ var srcBasePath = srcConfig.basePath,
 	distBasePath = distConfig.basePath;
 module.exports = function (done) {	
   runSequence(
-    // 'copy-scripts',
-    ['clean-dist-folder', 'compile-sass'],
-    'copy-libraries',
     ['copy-scripts','copy-css','copy-partials'],
-    'inject-files',
+    // ['clean-dist-folder', 'compile-sass'],
+    // ['copy-libraries','copy-fonts'],
+    // ['copy-scripts','copy-css','copy-partials'],
+    // 'inject-files',
     // 'rev'
     done);
 };
@@ -81,7 +81,14 @@ gulp.task('copy-libraries',function (done){
     .pipe(gulp.dest(path.join(libPath,cssPath)))
     .pipe(cssFilter.restore());
 });
+gulp.task('copy-fonts',function(done){
+    return gulp.src(path.join(srcBasePath,'/bower_components','/**','/fonts','/*'),{base:'.'})
+    .pipe(rename(function (path) {
+        path.dirname = './' 
+    }))
+    .pipe(gulp.dest(path.join(distBasePath,distConfig.libPath,distConfig.fontsPath)));
 
+});
 gulp.task('copy-scripts',function(done){
 	var jsPath = srcConfig.jsPath,
 		componentsPath = srcConfig.componentsPath;

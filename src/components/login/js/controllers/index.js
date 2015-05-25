@@ -3,6 +3,7 @@ angular.module('login')
 	if(activeUser!==null){
 		$scope.hasActiveUser = true;
 		$scope.username =  activeUser.username;
+		$scope.isAdmin = activeUser.admin ? true : false;
 	} else $scope.hasActiveUser = false;
 
 	$scope.login = function(){

@@ -3,5 +3,6 @@ module.exports = {
 	libPath: '/lib',
 	jsPath: '/js',
 	cssPath: '/css',
-	partialsPath: '/partials'
+	partialsPath: '/partials',
+	fontsPath: '/fonts'
 }

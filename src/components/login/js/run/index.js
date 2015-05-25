@@ -16,10 +16,10 @@ angular.module('login')
 
 	function determineBehaviour($kinvey,$state){
 		var activeUser = $kinvey.getActiveUser();
-		console.log('determining behaviour')
+		console.log('Determining behaviour...')
 		if(activeUser!==null){
 			console.log('Active user confirmed...redirecting to root state...');
-			$state.go('root');
+			$state.go('root.tasks');
 		} else {
 			console.log('No active user...redirecting to login page...');
 			$state.go('root.login');

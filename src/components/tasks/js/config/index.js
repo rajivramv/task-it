@@ -14,7 +14,7 @@ angular.module('tasks')
 					relations: {approval: 'task-approval'}
 				})
 				.then(function(model){
-					console.log('fetched records');
+					console.log('Fetched records');
 					console.log(model);
 					return model;
 				},function(err){

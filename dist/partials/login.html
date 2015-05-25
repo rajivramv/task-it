@@ -20,7 +20,11 @@
     </div>
   </div>
 
-  <div class="alert alert-success col-xs-10 col-xs-offset-1" role="alert" data-ng-show="hasActiveUser"><strong>Logged in as:</strong> {{username}}</div>
+  <div class="alert alert-success col-xs-10 col-xs-offset-1" role="alert" data-ng-show="hasActiveUser"><strong>Logged in as:</strong> &nbsp; &nbsp; {{username}} &nbsp;
+    <h4 class="pull-right">
+      <span class="glyphicon glyphicon-king" aria-hidden="true" data-ng-show="hasActiveUser && isAdmin "></span>
+    </h4>
+  </div> 
 
   <div class="form-group" data-ng-show="hasActiveUser"> 
     <div class="col-xs-offset-8 col-xs-2">

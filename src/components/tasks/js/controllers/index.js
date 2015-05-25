@@ -1,7 +1,24 @@
 angular.module('tasks')
-.controller('tasksController',['$scope','$state','tasks','activeUser',function($scope,$state,tasks,activeUser){
+.controller('tasksController',['$scope','$state','$kinvey','tasks','activeUser',function($scope,$state,$kinvey,tasks,activeUser){
 	$scope.tasks = tasks;
-	console.log(activeUser);
+	$scope.hasActiveUser = (activeUser!==null) ? true : false;
+	$scope.isAdmin = activeUser.admin ? true : false;
+	$scope.approve = function(bool,index,approvalId){
+		// console.log(bool + ' ' + taskId );
+		// console.log(tasks[$index].approval._id);
+		console.log(index);
+		var doc = {
+			_id: approvalId,
+			approved: bool
+		}
+		$kinvey.DataStore.save('task-approval',doc)
+		.then(function(res){
+			$scope.tasks[index].approval = res;
+		},function(err){
+			console.log('Couldnot approve the task!... see the error log below...');
+			console.log(err);
+		});
+	}
 }])
 .controller('addTaskController',['$scope','$state','$kinvey',function($scope,$state,$kinvey){
 	$scope.addTask = function(){
