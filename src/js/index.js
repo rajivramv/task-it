@@ -3,7 +3,6 @@
 var environment = (function defineEnvironment(){
 	var agent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)?'webview':'browser';
 	return {
-		env: env,
 		agent: agent,
 		readyEvent: agent === 'webview'? 'deviceready':'DOMContentLoaded',
 	}
