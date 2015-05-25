@@ -8,9 +8,7 @@ angular.module('tasks')
 				return $kinvey.getActiveUser();
 			}],
 			tasks: ['$kinvey',function($kinvey){
-				var query = new $kinvey.Query();
-				query.ascending('creator'); 
-				return $kinvey.DataStore.find('tasks',query,{
+				return $kinvey.DataStore.find('tasks',null,{
 					relations: {
 						approval: 'task-approval',
 						creator: 'user'
@@ -18,7 +16,6 @@ angular.module('tasks')
 				})
 				.then(function(model){
 					console.log('Fetched records');
-					console.log(model);
 					return model;
 				},function(err){
 					console.log('Some error fetching the records!...see log below...');

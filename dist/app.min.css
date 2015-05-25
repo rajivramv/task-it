@@ -45,7 +45,8 @@ body {
   border-color: rgba(183, 66, 30, 0.85) !important; }
 
 section {
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: absolute;
   bottom: 0px;
   left: 0px;
