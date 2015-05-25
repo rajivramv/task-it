@@ -15,6 +15,7 @@ angular.module('tasks')
 				})
 				.then(function(model){
 					console.log('Fetched records');
+					console.log(model);
 					return model;
 				},function(err){
 					console.log('Some error fetching the records!...see log below...');
@@ -24,7 +25,7 @@ angular.module('tasks')
 		},
 		views: {
 			'section@root': {
-				templateUrl: '/partials/tasks.html',
+				templateUrl: 'partials/tasks.html',
 				controller: 'tasksController'
 			}
 		}
@@ -33,7 +34,7 @@ angular.module('tasks')
 		url: '/addtask',
 		views: {
 			'section@root': {
-				templateUrl: '/partials/add-task.html',
+				templateUrl: 'partials/add-task.html',
 				controller: 'addTaskController'
 			}
 		}

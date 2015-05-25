@@ -1,6 +1,7 @@
 angular.module('tasks')
 .controller('tasksController',['$scope','$state','$kinvey','tasks','activeUser',function($scope,$state,$kinvey,tasks,activeUser){
 	$scope.tasks = tasks;
+	console.log(activeUser);
 	$scope.hasActiveUser = (activeUser!==null) ? true : false;
 	$scope.isAdmin = activeUser.admin ? true : false;
 	$scope.approve = function(bool,index,approvalId){

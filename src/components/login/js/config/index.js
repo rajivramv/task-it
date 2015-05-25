@@ -10,10 +10,10 @@ angular.module('login')
 		},
 		views: {
 			'header@root': {
-				templateUrl: '/partials/login-header.html'
+				templateUrl: 'partials/login-header.html'
 			},
 			'section@root': {
-				templateUrl: '/partials/login.html',
+				templateUrl: 'partials/login.html',
 				controller: 'loginController'
 			}
 		}
