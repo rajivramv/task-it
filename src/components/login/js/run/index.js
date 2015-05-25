@@ -1,6 +1,5 @@
 angular.module('login')
 .run(['$kinvey','$state',function($kinvey,$state){
-	console.log('login run');
 	// TODO: handle kinvey failing to initialize better!
 	$kinvey.init({
 			appKey: 'kid_Wk8MsXwikg',

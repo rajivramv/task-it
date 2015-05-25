@@ -15,7 +15,6 @@ angular.module('tasks')
 				})
 				.then(function(model){
 					console.log('Fetched records');
-					console.log(model);
 					return model;
 				},function(err){
 					console.log('Some error fetching the records!...see log below...');

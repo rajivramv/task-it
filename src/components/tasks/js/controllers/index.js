@@ -6,13 +6,13 @@ angular.module('tasks')
 	$scope.approve = function(bool,index,approvalId){
 		// console.log(bool + ' ' + taskId );
 		// console.log(tasks[$index].approval._id);
-		console.log(index);
 		var doc = {
 			_id: approvalId,
 			approved: bool
 		}
 		$kinvey.DataStore.save('task-approval',doc)
 		.then(function(res){
+			console.log('Task approval/disapproval success');
 			$scope.tasks[index].approval = res;
 		},function(err){
 			console.log('Couldnot approve the task!... see the error log below...');

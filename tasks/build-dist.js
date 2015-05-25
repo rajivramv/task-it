@@ -24,7 +24,7 @@ var revAll               = require('gulp-rev-all');
 var debug				 = require('gulp-debug');
 var ngFileSort           = require('gulp-angular-filesort');
 //var sq                   = require('streamqueue');
-// var usemin               = require('gulp-usemin');
+// var usemin               = require('gulp-usemin');   
 // var cssRebaseUrls        = require('gulp-css-rebase-urls');
 // var autoprefixer         = require('gulp-autoprefixer');
 // var angularTemplatecache = require('gulp-angular-templatecache');
@@ -36,11 +36,11 @@ var srcBasePath = srcConfig.basePath,
 	distBasePath = distConfig.basePath;
 module.exports = function (done) {	
   runSequence(
-    ['copy-scripts','copy-css','copy-partials'],
-    // ['clean-dist-folder', 'compile-sass'],
-    // ['copy-libraries','copy-fonts'],
     // ['copy-scripts','copy-css','copy-partials'],
-    // 'inject-files',
+    ['clean-dist-folder', 'compile-sass'],
+    ['copy-libraries','copy-fonts'],
+    ['copy-scripts','copy-css','copy-partials'],
+    'inject-files',
     // 'rev'
     done);
 };
