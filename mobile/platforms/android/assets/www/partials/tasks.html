@@ -1,48 +1,47 @@
 <div class="container">
-    <ul class="list-group" data-ng-hide="!hasActiveUser">
-      <li class="list-group-item" data-ng-repeat="task in tasks track by task._id" data-ng-click="isOpen = !isOpen">
-        <h4 class="list-group-item-heading">
-            {{task.task_name}}
-
-                <span class="pull-right label" data-ng-class="{'label-success':task.approval.approved,'label-danger':!task.approval.approved}">
-                    {{task.approval.approved ? 'Approved' : 'Not approved'}}
-                </span>
-                
-
-    
-        </h4>
-       
-        <div class="container-fluid" data-ng-show="isOpen">
-            <div class="row">
-                <div class="col-xs-6">
-                <h4><small>Start date: {{task.start_date}}</small></h4>    
-                </div>
-                <div class="col-xs-6">
-                <h4><small>End date: {{task.end_date}}</small></h4>       
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                <h5>Comments</h5>
-                <h4><small>{{task.comments || '...'}}</small></h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="pull-right" data-ng-show="isAdmin">
-                    <button type="button" class="btn btn-success" data-ng-show="!task.approval.approved" data-ng-click="approve(true,$index,task.approval._id)">
-                        <span class="glyphicon glyphicon-thumbs-up">
-                        </span>
-                    </button>
-                    <button type="button" class="btn btn-default" data-ng-show="task.approval.approved" data-ng-click="approve(false,$index,task.approval._id)">
-                        <span class="glyphicon glyphicon-thumbs-down">
-                        </span>
-                    </button>
-                </div>
-            </div>
+    <div class="panel panel-default" data-ng-repeat="user in users" data-ng-hide="!hasActiveUser"> 
+        <div class="panel-heading">
+            Created by <var>{{isAdmin ? user : 'me'}}</var>
         </div>
-      </li>
-    </ul>
-    
+        <ul class="list-group">
+            <li class="list-group-item" data-ng-repeat="task in tasks  | filter: { creator: { username: user} } track by task._id " data-ng-click="isOpen = !isOpen">
+                <h5 class="list-group-item-heading">
+                    {{task.task_name}}
+                    <span class="pull-right label" data-ng-class="{'label-success':task.approval.approved,'label-danger':!task.approval.approved}">
+                        {{task.approval.approved ? 'Approved' : 'Not approved'}}
+                    </span>  
+                </h5>
+                <div class="container-fluid list-group-item-text" style="border-top:" data-ng-show="isOpen">
+                    <div class="row">
+                        <div class="col-xs-6">
+                        <h6><strong>Start date</strong><br/>{{task.start_date}}</h6>    
+                        </div>
+                        <div class="col-xs-6">
+                        <h6><strong>End date</strong><br/>{{task.end_date}}</h6>    
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                        Comments<br/>
+                        <small>{{task.comments || '...'}}</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="pull-right" data-ng-show="isAdmin">
+                            <button type="button" class="btn btn-success" data-ng-show="!task.approval.approved" data-ng-click="approve(true,task)">
+                                <span class="glyphicon glyphicon-thumbs-up">
+                                </span>
+                            </button>
+                            <button type="button" class="btn btn-default" data-ng-show="task.approval.approved" data-ng-click="approve(false,task)">
+                                <span class="glyphicon glyphicon-thumbs-down">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
     <div class="alert alert-danger" role="alert" data-ng-hide="hasActiveUser">Please login to see the tasks.</div>
     
 </div>

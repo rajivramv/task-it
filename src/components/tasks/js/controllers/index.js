@@ -2,7 +2,7 @@ angular.module('tasks')
 .controller('tasksController',['$scope','$state','$kinvey','tasks','activeUser',function($scope,$state,$kinvey,tasks,activeUser){
 	
 	$scope.tasks = tasks;
-	$scope.hasActiveUser = (activeUser!==null) ? true : false;
+	$scope.haveActiveUser = (activeUser!==null) ? true : false;
 	var isAdmin = $scope.isAdmin = activeUser.admin ? true : false;
 	var users = [];
 	if (!isAdmin) users.push(activeUser.username)

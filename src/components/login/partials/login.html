@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form" name="loginForm" data-ng-hide="hasActiveUser">
+<form class="container form-horizontal" role="form" name="loginForm" data-ng-hide="haveActiveUser">
 
 	<div class="form-group" data-ng-class="{'has-success': !loginForm.username.$error.required}" >
 		<label class="control-label col-xs-offset-1 col-sm-2" for="username">Username</label>
@@ -10,7 +10,7 @@
 	<div class="form-group" data-ng-class="{'has-success': !loginForm.password.$error.required}">
 		<label class="control-label col-xs-offset-1 col-sm-2" for="password">Password</label>
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-pull-1"> 
-			<input type="password" class="form-control" id="password" placeholder="•••••••" data-ng-model="user.pwd" name="password" data-ng-disabled="hasActiveUser" required/>
+			<input type="password" class="form-control" id="password" placeholder="•••••••" data-ng-model="user.pwd" name="password" data-ng-disabled="haveActiveUser" required/>
 		</div>
 	</div>
 
@@ -22,7 +22,7 @@
 
 </form>
 
-<form class="form-horizontal" role="form" name="loggedInForm" data-ng-show="hasActiveUser">
+<form class="container form-horizontal" role="form" name="loggedInForm" data-ng-show="haveActiveUser">
 
 	<div class="alert alert-success col-xs-10 col-xs-offset-1" role="alert" >
 		<strong>Logged in as:</strong> &nbsp; <var>{{username}}</var>

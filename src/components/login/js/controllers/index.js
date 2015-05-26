@@ -1,10 +1,10 @@
 angular.module('login')
 .controller('loginController',['$scope','$state','$kinvey','activeUser',function($scope,$state,$kinvey,activeUser){
 	if(activeUser!==null){
-		$scope.hasActiveUser = true;
+		$scope.haveActiveUser = true;
 		$scope.username =  activeUser.username;
 		$scope.isAdmin = activeUser.admin ? true : false;
-	} else $scope.hasActiveUser = false;
+	} else $scope.haveActiveUser = false;
 
 	$scope.login = function(){
 		if ($scope.loginForm.username.$error.required || $scope.loginForm.password.$error.required) return null;

@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="panel panel-default" data-ng-repeat="user in users" data-ng-hide="!hasActiveUser"> 
+    <div class="panel panel-default" data-ng-repeat="user in users" data-ng-hide="!haveActiveUser"> 
         <div class="panel-heading">
             Created by <var>{{isAdmin ? user : 'me'}}</var>
         </div>
@@ -42,7 +42,7 @@
             </li>
         </ul>
     </div>
-    <div class="alert alert-danger" role="alert" data-ng-hide="hasActiveUser">Please login to see the tasks.</div>
+    <div class="alert alert-danger" role="alert" data-ng-hide="haveActiveUser">Please login to see the tasks.</div>
     
 </div>
-<button class="add-task" ui-sref="root.tasks.addtask" data-ng-hide="!hasActiveUser">+</button>
+<button class="add-task" ui-sref="root.tasks.addtask" data-ng-hide="!haveActiveUser">+</button>
