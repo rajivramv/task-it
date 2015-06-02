@@ -3,11 +3,6 @@ angular.module('login')
 	$stateProvider
 	.state('root.login',{
 		url: '/login',
-		resolve: {
-			activeUser: ['$kinvey',function($kinvey){
-				return $kinvey.getActiveUser();
-			}]
-		},
 		views: {
 			'header@root': {
 				templateUrl: 'partials/login-header.html'
@@ -15,6 +10,18 @@ angular.module('login')
 			'section@root': {
 				templateUrl: 'partials/login.html',
 				controller: 'loginController'
+			}
+		}
+	})
+	.state('root.signup',{
+		url: '/signup',
+		views: {
+			'header@root': {
+				templateUrl: 'partials/signup-header.html'
+			},
+			'section@root': {
+				templateUrl: 'partials/signup.html',
+				controller: 'signupController'
 			}
 		}
 	})

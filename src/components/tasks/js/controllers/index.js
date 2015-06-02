@@ -1,16 +1,20 @@
 angular.module('tasks')
-.controller('tasksController',['$scope','$state','$kinvey','tasks','activeUser',function($scope,$state,$kinvey,tasks,activeUser){
+.controller('tasksController',['$rootScope','$scope','$state','$kinvey','tasks','notify',function($rootScope,$scope,$state,$kinvey,tasks,notify){
 	
-	$scope.tasks = tasks;
-	$scope.haveActiveUser = (activeUser!==null) ? true : false;
-	var isAdmin = $scope.isAdmin = activeUser.admin ? true : false;
+	if(!$rootScope.activeUser) return null;
 	var users = [];
-	if (!isAdmin) users.push(activeUser.username)
+	$scope.tasks = tasks;
+	if (!$rootScope.activeUser.admin) users.push($rootScope.activeUser.name)
 	else 
 		for (var i = 0; i <= tasks.length-1; i++) 
-			if(tasks[i].creator && tasks[i].creator.username && users.indexOf(tasks[i].creator.username) < 0 ) 
-				users.push(tasks[i].creator.username); 
+			if(tasks[i].creator && tasks[i].creator.name && users.indexOf(tasks[i].creator.name) < 0 ) 
+				users.push(tasks[i].creator.name); 
 	$scope.users = users;	
+
+	$scope.toLocale = function(date){
+		var d = new Date(date);
+		return d.toLocaleDateString();
+	}
 		
 	$scope.approve = function(bool,task){
 		var doc = {
@@ -24,10 +28,11 @@ angular.module('tasks')
 		},function(err){
 			console.log('Could not approve the task!... see the error log below...');
 			console.log(err);
+			notify(err.description);
 		});
 	}
 }])
-.controller('addTaskController',['$scope','$state','$kinvey','activeUser',function($scope,$state,$kinvey,activeUser){
+.controller('addTaskController',['$rootScope','$scope','$state','$kinvey',function($rootScope,$scope,$state,$kinvey){
 	$scope.addTask = function(){
 		if ($scope.addTaskForm.taskName.$error.required || $scope.addTaskForm.startDate.$error.required || $scope.addTaskForm.endDate.$error.required ) return null;
 		var doc = {
@@ -35,7 +40,7 @@ angular.module('tasks')
 			start_date: $scope.task.startDate,
 			end_date: $scope.task.endDate,
 			comments: $scope.task.comments,
-			creator: activeUser
+			creator: $rootScope.activeUser
 		};
 		$kinvey.DataStore.save('tasks',doc,{
 			exclude: ['creator'],
@@ -46,6 +51,7 @@ angular.module('tasks')
 		function(err) {
 			console.log('There seems to be a problem adding the task!...see the error log below...');
 			console.log(err);
+			notify(err.description);
 		});
 	}
 }]);

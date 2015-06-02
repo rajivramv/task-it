@@ -1,0 +1,40 @@
+<form class="container form-horizontal" role="form" name="signupForm" data-ng-show="activeUser===null">
+
+	<div class="form-group" data-ng-class="{'has-success': !signupForm.name.$error.required}">
+		<label class="control-label col-xs-offset-1 col-sm-2" for="name">Full Name</label>
+		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-pull-1"> 
+			<input type="text" class="form-control" id="name" placeholder="Full Name" data-ng-model="user.name" name="name" data-ng-disabled="haveActiveUser" required>
+		</div>
+	</div>
+
+	<div class="form-group" data-ng-class="{'has-success': signupForm.email.$valid}">
+		<label class="control-label col-xs-offset-1 col-sm-2" for="email">E-mail</label>
+		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-pull-1"> 
+			<input type="email" class="form-control" id="email" placeholder="E-mail" data-ng-model="user.email" name="email" data-ng-disabled="haveActiveUser" required>
+		</div>
+	</div>
+	
+	<div class="form-group" data-ng-class="{'has-success': !signupForm.username.$error.required}" >
+		<label class="control-label col-xs-offset-1 col-sm-2" for="username">Username</label>
+		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-pull-1">
+			<input type="text" class="form-control" id="username" placeholder="Username" data-ng-model="user.username" name="username" required>
+		</div>
+	</div>
+
+	<div class="form-group" data-ng-class="{'has-success': !signupForm.password.$error.required}">
+		<label class="control-label col-xs-offset-1 col-sm-2" for="password">Password</label>
+		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-pull-1"> 
+			<input type="password" class="form-control" id="password" placeholder="•••••••" data-ng-model="user.pwd" name="password" data-ng-disabled="haveActiveUser" required>
+		</div>
+	</div>
+
+	<div class="form-group"> 
+		<div class="col-xs-offset-1 col-xs-4">
+			<button type="button" class="btn btn-default" data-ui-sref="root.login">Back</button>
+		</div>
+		<div class="col-xs-offset-3 col-xs-4">
+			<button type="submit" class="btn btn-default" data-ng-class="{'btn-primary':!signupForm.$invalid}" data-ng-disabled="(signupForm.$invalid)" data-ng-click="signup()">Signup</button>
+		</div>		
+	</div>
+
+</form>

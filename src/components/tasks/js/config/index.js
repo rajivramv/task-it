@@ -4,10 +4,8 @@ angular.module('tasks')
 	.state('root.tasks',{
 		url: '/tasks',
 		resolve: {
-			activeUser: ['$kinvey',function($kinvey){
-				return $kinvey.getActiveUser();
-			}],
-			tasks: ['$kinvey',function($kinvey){
+			tasks: ['$rootScope','$kinvey',function($rootScope,$kinvey){
+				if(!$rootScope.activeUser) return [];
 				return $kinvey.DataStore.find('tasks',null,{
 					relations: {
 						approval: 'task-approval',
@@ -24,6 +22,9 @@ angular.module('tasks')
 			}],	
 		},
 		views: {
+			'header@root':{
+				templateUrl: 'partials/tasks-header.html'
+			},
 			'section@root': {
 				templateUrl: 'partials/tasks.html',
 				controller: 'tasksController'

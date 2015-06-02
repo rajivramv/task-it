@@ -5,10 +5,7 @@ angular.module('main')
 		views: {
 			'body': {
 				templateUrl: 'partials/body.html'
-			},
-			'header@root': {
-				templateUrl: 'partials/main-nav.html'
-			} 
+			}
 		}
 	});
 }])

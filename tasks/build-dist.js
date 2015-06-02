@@ -23,6 +23,7 @@ var inject 				 = require('gulp-inject');
 var revAll               = require('gulp-rev-all');
 var debug				 = require('gulp-debug');
 var ngFileSort           = require('gulp-angular-filesort');
+var plugins              = require('gulp-load-plugins')();
 //var sq                   = require('streamqueue');
 // var usemin               = require('gulp-usemin');   
 // var cssRebaseUrls        = require('gulp-css-rebase-urls');
@@ -34,13 +35,14 @@ var ngFileSort           = require('gulp-angular-filesort');
 // var toDelete = [];
 var srcBasePath = srcConfig.basePath,		
 	distBasePath = distConfig.basePath;
+
 module.exports = function (done) {	
   runSequence(
-    // ['copy-scripts','copy-css','copy-partials'],
-    ['clean-dist-folder', 'compile-sass'],
-    ['copy-libraries','copy-fonts'],
     ['copy-scripts','copy-css','copy-partials'],
-    'inject-files',
+    // ['clean-dist-folder', 'compile-sass'],
+    // ['copy-libraries','copy-fonts'],
+    // ['copy-scripts','copy-css','copy-partials'],
+    // 'inject-files',
     // 'rev'
     done);
 };
@@ -54,17 +56,17 @@ gulp.task('copy-libraries',function (done){
 	var libPath = path.join(distBasePath, distConfig.libPath),
 		jsPath = distConfig.jsPath,
 		cssPath = distConfig.cssPath;
-	var jsFilter = gulpFilter('*.js');
-    var cssFilter = gulpFilter('*.css');
-    var count = 1;
+	var jsFilter = plugins.filter('*.js');
+    var cssFilter = plugins.filter('*.css');
     // var fontFilter = gulpFilter(['*.eot', '*.woff', '*.svg', '*.ttf']);
+    var count = 1;
 
     // grab vendor js files from bower_components, minify and push it into libPath/js
     return gulp.src(mainBowerFiles())
     .pipe(jsFilter)
-    .pipe(uglify())
-    .pipe(sourceMaps.write())
-    .pipe(rename(function(path){
+    .pipe(plugins.uglify())
+    .pipe(plugins.sourcemaps.write())
+    .pipe(plugins.rename(function(path){
         path.basename = 'lib-js-' + count++ + '-' + path.basename;
         path.extname = '.min' + path.extname;
     }))
@@ -73,9 +75,9 @@ gulp.task('copy-libraries',function (done){
 
     // grab vendor css files from bower_components, minify and push it into libPath/css
     .pipe(cssFilter)
-    .pipe(minifyCss())
-    .pipe(sourceMaps.write())
-    .pipe(rename({
+    .pipe(plugins.minifyCss())
+    .pipe(plugins.sourcemaps.write())
+    .pipe(plugins.rename({
         suffix: '.min'
     }))
     .pipe(gulp.dest(path.join(libPath,cssPath)))
@@ -93,11 +95,11 @@ gulp.task('copy-scripts',function(done){
 	var jsPath = srcConfig.jsPath,
 		componentsPath = srcConfig.componentsPath;
 	return gulp.src([path.join(srcBasePath,jsPath,'{,/**}/*.js'),path.join(srcBasePath,componentsPath,'/**',jsPath,'{,/**}/*.js')])
-    .pipe(ngFileSort())
-	.pipe(concat('app.js'))
-	.pipe(ngAnnotate())
-	.pipe(uglify())
-	.pipe(rename({
+    .pipe(plugins.angularFilesort())
+	.pipe(plugins.concat('app.js'))
+	.pipe(plugins.ngAnnotate())
+	// .pipe(uglify())
+	.pipe(plugins.rename({
         suffix: '.min'
     }))
     .pipe(gulp.dest(distBasePath));     
@@ -107,9 +109,9 @@ gulp.task('copy-css', function(done){
     var cssPath = srcConfig.cssPath,
         componentsPath = srcConfig.componentsPath;
     return gulp.src([path.join(srcBasePath,cssPath,'/**/*.css'),path.join(srcBasePath,componentsPath,'/**',cssPath,'/**/*.css')])
-        .pipe(concat('app.css'))
-        .pipe(sourceMaps.write())
-        .pipe(rename({
+        .pipe(plugins.concat('app.css'))
+        .pipe(plugins.sourcemaps.write())
+        .pipe(plugins.rename({
             suffix: '.min'
         }))
         .pipe(gulp.dest(distBasePath));
@@ -119,7 +121,7 @@ gulp.task('copy-partials',function(){
     var partialsPath = srcConfig.partialsPath,
         componentsPath = srcConfig.componentsPath;
     return gulp.src([path.join(srcBasePath,partialsPath,'{,/**}/*.html'),path.join(srcBasePath,componentsPath,'/**', partialsPath,'{,/**}/*.html')],{base:'.'})
-        .pipe(rename(function (path) {
+        .pipe(plugins.rename(function (path) {
             path.dirname = './' 
         }))
         .pipe(gulp.dest(path.join(distBasePath,distConfig.partialsPath)));
@@ -132,16 +134,16 @@ gulp.task('inject-files',function () {
     // location with that. So in the former case a rename will be /some/location/rename/ while in 
     // the latter it will be ./rename
     var target = gulp.src(srcBasePath + '/*.html',{base:'.'})
-        .pipe(rename(function(foo){
+        .pipe(plugins.rename(function(foo){
             foo.dirname = distBasePath;  
         }))
-        .pipe(debug({title:'target-->'}));
+        .pipe(plugins.debug({title:'target-->'}));
     var sources = gulp.src(distBasePath + '/*{.js,.css}',{read: false}).pipe(debug({title:'sources-->'}));
     var libraries = gulp.src(path.join(distBasePath,distConfig.libPath) + '/**/*{.js,.css}',{read: false}).pipe(debug({title:'libraries-->'}));
 
     return target
-        .pipe(inject(libraries,{relative:true, name:'lib'}))
-        .pipe(inject(sources,{relative:true, name:'src'}))
+        .pipe(plugins.inject(libraries,{relative:true, name:'lib'}))
+        .pipe(plugins.inject(sources,{relative:true, name:'src'}))
         .pipe(gulp.dest('.'));
 });
 

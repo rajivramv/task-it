@@ -1,5 +1,5 @@
 module.exports = {
-	basePath: './dist', 
+	basePath: './www', 
 	libPath: '/lib',
 	jsPath: '/js',
 	cssPath: '/css',
