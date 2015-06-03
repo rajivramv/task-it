@@ -7,10 +7,10 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-splashscreen": {
+    "org.apache.cordova.splashscreen": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-splashscreen"
+            "id": "org.apache.cordova.splashscreen"
         },
         "is_top_level": true,
         "variables": {}

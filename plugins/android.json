@@ -23,10 +23,10 @@
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "PACKAGE_NAME": "com.taskit.app"
         },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.taskmanagement.app"
+        "org.apache.cordova.splashscreen": {
+            "PACKAGE_NAME": "com.taskit.app"
         }
     },
     "dependent_plugins": {}

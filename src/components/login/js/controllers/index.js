@@ -4,7 +4,7 @@ angular.module('login')
 		if ($scope.loginForm.username.$error.required || $scope.loginForm.password.$error.required) return null;
 
 		$kinvey.User.login({
-			username: $scope.user.username,
+			username: $scope.user.username.trim(),
 			password: $scope.user.pwd
 		}).then(function(activeUser){
 			console.log('Successfully logged in!');
@@ -48,10 +48,10 @@ angular.module('login')
 		if ($scope.signupForm.$invalid) return null;
 
 		$kinvey.User.signup({
-			username: $scope.user.username,
+			username: $scope.user.username.trim(),
 			password: $scope.user.pwd,
-			name: $scope.user.name,
-			email: $scope.user.email
+			name: $scope.user.name.trim(),
+			email: $scope.user.email.trim()
 		}).then(function (user) {
 			console.log('Successfully signed up...need email verfication!');
 			$rootScope.activeUser = false;
