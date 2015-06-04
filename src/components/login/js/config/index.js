@@ -1,3 +1,4 @@
+// Configuring the different login states - login and signup.
 angular.module('login')
 .config(['$stateProvider',function($stateProvider){
 	$stateProvider

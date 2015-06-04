@@ -1,3 +1,4 @@
+// controllers that exposes login(), logout(), confirm() and signup() to the views.
 angular.module('login')
 .controller('loginController',['$rootScope','$scope','$state','$kinvey','notify',function($rootScope,$scope,$state,$kinvey,notify){
 	

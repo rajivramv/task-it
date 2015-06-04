@@ -1,3 +1,4 @@
+// Configuring the task states. The task are resolved by fetching them from kinvey before the root.tasks state loads
 angular.module('tasks')
 .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
 	$stateProvider

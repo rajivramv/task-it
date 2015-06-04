@@ -1,3 +1,5 @@
+// Expose approve(), addTask(), toLocale() methods to the views. toLocale() is used to display the date
+// in locale format
 angular.module('tasks')
 .controller('tasksController',['$rootScope','$scope','$state','$kinvey','tasks','notify',function($rootScope,$scope,$state,$kinvey,tasks,notify){
 	
