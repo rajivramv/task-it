@@ -1,3 +1,4 @@
+// A simple factory to show a toast
 angular.module('main')
 .factory('notify',['$timeout',function($timeout){
 	return function(msg){

@@ -1,17 +1,18 @@
+// Initialize kinvey and route the app to either the login page or the tasks page based on whether 
+// an active user is present or not.
 angular.module('main')
 .run(['$kinvey','$state','$rootScope','$document','$timeout','notify',function($kinvey,$state,$rootScope,$document,$timeout,notify){
-	// TODO Check if the app exit code works once the kinvey is up	
-	// var shouldExitApp = false;
-	// $document[0].addEventListener('backbutton',function(){
-	// 	if (shouldExitApp) return navigator.app.exitApp();
-	// 	else if ($state.$current.parent.name ==='root') {
-	// 		shouldExitApp = true;
-	// 		notify('Press back one more time to exit');
-	// 		$timeout(function(){
-	// 			shouldExitApp = false;
-	// 		},2800);
-	// 	} else return $state.go('^');
-	// },false);
+	var shouldExitApp = false;
+	$document[0].addEventListener('backbutton',function(){
+		if (shouldExitApp) return navigator.app.exitApp();
+		else if ($state.$current.parent.name ==='root') {
+			shouldExitApp = true;
+			notify('Press back one more time to exit');
+			$timeout(function(){
+				shouldExitApp = false;
+			},2800);
+		} else return $state.go('^');
+	},false);
 
 	$kinvey.init({	
 			appKey: 'kid_Wk8MsXwikg',
