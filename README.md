@@ -12,6 +12,6 @@ The app description and the apk file of the app can be found in `docs/`.
 6. Run `gulp build-dist` to build the app. This will regenerate the `www` folder which stores the assests necessary for the phonegap app.
 7. Run `phonegap platform add android` to add the android platform.
 8. You can now run 
-	a. `phonegap serve` which will start a local server that can be accessed with the phonegap developer app or browser.
-	b. `phonegap build android` to build the apk file.
-	c. or `phonegap run android` to run an instance of the app in an emulator or device.   
+	* `phonegap serve` which will start a local server that can be accessed with the phonegap developer app or browser.
+	* `phonegap build android` to build the apk file.
+	* or `phonegap run android` to run an instance of the app in an emulator or device.   
