@@ -39,8 +39,8 @@ gulp.task('watch',function(){
 gulp.task('build-dist',function(done){
 	plugins.runSequence(
 		'clean-dist',
-		['copy-library','copy-scripts','copy-css','copy-partials'],
-		'inject-files',
+		['copy-scripts','copy-css'],
+		'copy-library','copy-partials','inject-files',
 		done
 	)
 });

@@ -1,8 +1,8 @@
 angular.module('login')
 .controller('loginController',['$rootScope','$scope','$state','$kinvey','notify',function($rootScope,$scope,$state,$kinvey,notify){
+	
 	$scope.login = function(){
 		if ($scope.loginForm.username.$error.required || $scope.loginForm.password.$error.required) return null;
-
 		$kinvey.User.login({
 			username: $scope.user.username.trim(),
 			password: $scope.user.pwd

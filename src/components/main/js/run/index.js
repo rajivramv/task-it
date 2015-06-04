@@ -1,6 +1,7 @@
-angular.module('login')
-.run(['$kinvey','$state','$rootScope',function($kinvey,$state,$rootScope){
-	$kinvey.init({
+angular.module('main')
+.run(['$kinvey','$state','$rootScope','$document','$timeout','notify',function($kinvey,$state,$rootScope,$document,$timeout,notify){
+
+	$kinvey.init({	
 			appKey: 'kid_Wk8MsXwikg',
 			appSecret: '68c9a63e8a4a41b98898796652bfccc5'
 	}).then(function(activeUser){

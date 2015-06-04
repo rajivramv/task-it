@@ -20,7 +20,6 @@
     <content src="index.html" />
     <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
-    <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
     <preference name="stay-in-webview" value="false" />
@@ -29,7 +28,7 @@
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
-    <preference name="android-minSdkVersion" value="10" />
+    <preference name="android-minSdkVersion" value="17" />
     <preference name="android-installLocation" value="auto" />
     <preference name="SplashScreen" value="res/xml/splash.png" />
     <preference name="SplashScreenDelay" value="10000" />
