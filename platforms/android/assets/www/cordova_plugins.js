@@ -3,11 +3,13 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-whitelist/whitelist.js",
         "id": "cordova-plugin-whitelist.whitelist",
+        "pluginId": "cordova-plugin-whitelist",
         "runs": true
     },
     {
         "file": "plugins/org.apache.cordova.splashscreen/www/splashscreen.js",
         "id": "org.apache.cordova.splashscreen.SplashScreen",
+        "pluginId": "org.apache.cordova.splashscreen",
         "clobbers": [
             "navigator.splashscreen"
         ]
